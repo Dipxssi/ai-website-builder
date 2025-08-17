@@ -1,35 +1,19 @@
 import dotenv from "dotenv";
+import express from "express";
+import aiRoutes from "./routes/aiRoutes.js";
+import featureRoutes from "./routes/featureRoutes.js";
+
 dotenv.config();
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
+const app = express();
+const PORT = process.env.PORT || 5000;
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+app.use(express.json());
 
-async function main() {
-  try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+// Routes
+app.use("/api/ai", aiRoutes);
+app.use("/api/features", featureRoutes);
 
-    const stream = await model.generateContentStream({
-      contents : [
-        {
-          role: "user",
-          parts: [{ text: " Write the code for a tic-tac-toe application" }],
-        },
-      ],
-      generationConfig: {
-        temperature: 0.7,
-        maxOutputTokens: 1000,
-      }
-    });
-
-    for await (const chunnk of stream.stream){
-      const chunnkText = chunnk.text();
-      process.stdout.write(chunnkText);
-    }
-
-  } catch (error) {
-    console.log("API Error: ", error);
-  }
-}
-
-await main();
+app.listen(PORT , () => {
+  console.log(` Server running on http://localhost:${PORT}`);
+});

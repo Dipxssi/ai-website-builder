@@ -1,1 +1,1 @@
-{"root":["./src/index.ts"],"version":"5.9.2"}
+{"root":["./src/index.ts","./src/prompt.ts","./src/controllers/aicontroller.ts","./src/controllers/featurecontroller.ts","./src/db/prisma.ts","./src/routes/airoutes.ts","./src/routes/featureroutes.ts","./src/services/aiservice.ts","./src/services/dbservice.ts","./src/templates/booking.ts","./src/templates/catalog.ts","./src/templates/form.ts","./src/types/business.ts"],"version":"5.9.2"}
